@@ -27,7 +27,7 @@ function App() {
           ESAMI:
         </div>
         <AddUserForm addPerson={addPerson} />
-        <UserList person={person} />
+        <UserList person={person} setPerson={setPerson} />
 
       </header>
     </div>
