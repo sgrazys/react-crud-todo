@@ -5,13 +5,14 @@ function AddUserForm({ addPerson }) {
 	const [eneteredColor, setEnteredColor] = useState('');
 
 	const nameHandler = (event) => {
-		if (
-			event.target.value.trim().length >= 3 &&
-			!/\d/.test(event.target.value)
-		) {
-			setEnteredName(event.target.value);
-		}
+		setEnteredName(event.target.value);
 	};
+
+	function inputValidation(enteredName) {
+		return enteredName.length >= 3 && !/\d/.test(enteredName)
+			? addPerson(enteredName, eneteredColor)
+			: null;
+	}
 
 	const colorHandler = (event) => {
 		setEnteredColor(event.target.value);
@@ -29,10 +30,7 @@ function AddUserForm({ addPerson }) {
 			<label htmlFor='color'>Pasirinkite spalva</label>
 			<input type='color' id='color' onChange={colorHandler} />
 
-			<button
-				type='submit'
-				onClick={() => addPerson(eneteredName, eneteredColor)}
-			>
+			<button type='submit' onClick={() => inputValidation(eneteredName)}>
 				Add User
 			</button>
 		</form>
