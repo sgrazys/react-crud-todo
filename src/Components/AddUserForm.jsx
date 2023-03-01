@@ -1,17 +1,15 @@
 import { useState } from 'react';
 
 function AddUserForm({ addPerson }) {
-	const [eneteredName, setEnteredName] = useState('');
-	const [eneteredColor, setEnteredColor] = useState('');
+	const [enteredName, setEnteredName] = useState('');
+	const [eneteredColor, setEnteredColor] = useState('#ffffff');
 
 	const nameHandler = (event) => {
 		setEnteredName(event.target.value);
 	};
 
-	function inputValidation(enteredName) {
-		return enteredName.length >= 3 && !/\d/.test(enteredName)
-			? addPerson(enteredName, eneteredColor)
-			: null;
+	function isInputValid(enteredName) {
+		return enteredName.length >= 3 && !/\d/.test(enteredName);
 	}
 
 	const colorHandler = (event) => {
@@ -20,19 +18,33 @@ function AddUserForm({ addPerson }) {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
+
+		if (isInputValid(enteredName)) {
+			addPerson(enteredName, eneteredColor);
+			setEnteredName('');
+			setEnteredColor('#ffffff');
+		}
 	};
 
 	return (
 		<form onSubmit={submitHandler}>
 			<label htmlFor='name'>Jusu vardas</label>
-			<input type='text' id='name' onChange={nameHandler} />
+			<input
+				type='text'
+				id='name'
+				value={enteredName}
+				onChange={nameHandler}
+			/>
 
 			<label htmlFor='color'>Pasirinkite spalva</label>
-			<input type='color' id='color' onChange={colorHandler} />
+			<input
+				type='color'
+				id='color'
+				value={eneteredColor}
+				onChange={colorHandler}
+			/>
 
-			<button type='submit' onClick={() => inputValidation(eneteredName)}>
-				Add User
-			</button>
+			<button type='submit'>Add User</button>
 		</form>
 	);
 }

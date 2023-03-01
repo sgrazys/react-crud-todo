@@ -1,6 +1,9 @@
-function UserList({ person, setPerson }) {
+import { useState } from 'react';
+
+function UserList({ person, setPerson, deleteCount }) {
 	const delHandler = (id) => {
 		setPerson((s) => s.filter((s) => s.id !== id));
+		deleteCount();
 	};
 
 	return (
